@@ -205,6 +205,7 @@ case 'West Bengal':return [22.98,87.85]
         total_deaths: item.new_death,
         change_death:item.new_death-item.death,
       geometry:this.getGeometry(item.state_name),
+      radius:4
        // longitude:this.getLongitude(item.state_name)
        })) 
       }); 
@@ -340,7 +341,8 @@ case 'West Bengal':return [22.98,87.85]
                       this.setState({
                         selectedStateIndex: item.id,
                         center:item.geometry,
-                        zoom:7
+                        zoom:7,
+                       
                     }) 
                   }
                   >
@@ -382,7 +384,7 @@ case 'West Bengal':return [22.98,87.85]
               center={this.state.center}
               zoom={this.state.zoom}
               state_details={this.state.state_details}
-              
+              selectedStateIndex={this.state.selectedStateIndex}
             />
           </div> 
         </div>

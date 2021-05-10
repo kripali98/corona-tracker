@@ -24,7 +24,7 @@ class MapRenderer extends React.Component {
                <CircleMarker
                 color={item.cardColor}
                 center={item.geometry}
-                radius="4"
+                radius={item.id==this.props.selectedStateIndex?'15':'4'}
                
                // center={center}
                 
