@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Leaflet debug page</title>
+
+		<!--  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY" async defer></script> -->
+		<script src="https://maps.googleapis.com/maps/api/js" async defer></script>
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<!--  <link rel="stylesheet" href="../Leaflet/dist/leaflet.css" />
+		<script type="text/javascript" src="../Leaflet/dist/leaflet-src.js"></script>-->
+
+		<link
+			rel="stylesheet"
+			href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+			integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+			crossorigin=""
+		/>
+		<script
+			src="https://unpkg.com/leaflet@1.7.1/dist/leaflet-src.js"
+			integrity="sha512-I5Hd7FcJ9rZkH7uD01G3AjsuzFy3gqz7HIJvzFZGFt2mrCS4Piw9bYZvCgUE0aiJuiZFYIJIwpbNnDIM6ohTrg=="
+			crossorigin=""
+		></script>
+
+		<script type="text/javascript" src="../dist/Leaflet.GoogleMutant.js"></script>
+		<style>
+			#map {
+				/*    margin: 32px; */
+				/*    width: auto; */
+				/*    overflow: visible; */
+				position: absolute;
+				left: 15em;
+				right: 0;
+				height: 100vh;
+			}
+			body {
+				margin: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="map" class="map"></div>
+		<div style="position: absolute; width: 15em; top: 10px; z-index: 500">
+			GoogleMutant demo
+			<!--			<div><button id="dc">DC</button><small>(flyTo)</small></div>
+			<div><button id="sf">SF</button><small>(setView, 5 sec)</small></div>
+			<div><button id="trd">TRD</button><small>(flyTo 20 sec)</small></div>
+			<div><button id="lnd">LND</button><small>(fract. zoom)</small></div>
+			<div><button id="kyiv">KIEV</button><small>(setView, fract. zoom)</small></div>
+			<div><button id="mad">MAD</button><small>(fitBounds)</small></div>
+			<div><button id="nul">NUL</button><small>(image overlay)</small></div>
+			<div><button id="stop">stop</button></div>-->
+		</div>
+
+		<script type="text/javascript">
+			var google_terrain = L.gridLayer.googleMutant({ type: "terrain" });
+			var google_road = L.gridLayer.googleMutant({ type: "roadmap" });
+			var opentopo = L.tileLayer("https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png", {
+				attribution: '&copy; <a href="https://opentopomap.org">OpenTopoMap</a>',
+			});
+			var mapLayers = {
+				opentopo: opentopo,
+				terrain: google_terrain,
+				road: google_road,
+			};
+
+			var map = L.map("map", {
+				tap: false,
+				touchZoom: true,
+				layers: [mapLayers["terrain"]],
+				//   layers: [mapLayers["opentopo"]],
+				preferCanvas: true,
+			}).setView([51.505, -0.09], 5);
+			L.control
+				.layers(mapLayers, {}, { collapsed: false, bounceAtZoomLimits: false })
+				.addTo(map);
+
+			var circle1,
+				circle2,
+				opt = { direction: "center", permanent: true };
+
+			setTimeout(() => {
+				circle1 = L.circle([50.5, 30.5], { radius: 60000 })
+					.addTo(map)
+					.bindTooltip("1", opt)
+					.openTooltip();
+				circle2 = L.circle([45, 30.0], { radius: 50000 })
+					.addTo(map)
+					.bindTooltip("2", opt)
+					.openTooltip();
+				map.fitBounds(L.featureGroup([circle1, circle2]).getBounds());
+			}, 1000);
+			setTimeout(() => {
+				map.addLayer(google_road);
+				//   map.addLayer(opentopo);
+				map.removeLayer(google_terrain);
+			}, 2000);
+			setTimeout(() => {
+				map.fitBounds(circle1.getBounds());
+			}, 3000);
+			setTimeout(() => {
+				// 	debugger;
+				map.fitBounds(circle2.getBounds());
+			}, 4000);
+
+			setInterval(function () {
+				console.log(
+					"" +
+						map.getCenter() +
+						" " +
+						map.getZoom() +
+						" " +
+						map.minZoom +
+						" " +
+						map.maxZoom
+				);
+			}, 100);
+
+			map.on("zoomlevelschange", function () {
+				console.log("zoom levels change", map);
+			});
+
+			var grid = L.gridLayer({
+				attribution: "Debug tilecoord grid",
+				zIndex: 100,
+			});
+
+			grid.createTile = function (coords) {
+				var tile = L.DomUtil.create("div", "tile-coords");
+				tile.style.border = "1px solid black";
+				tile.style.lineHeight = "256px";
+				tile.style.textAlign = "center";
+				tile.style.fontSize = "20px";
+				tile.innerHTML = [coords.x, coords.y, coords.z].join(", ");
+
+				return tile;
+			};
+
+			grid.addTo(map);
+		</script>
+	</body>
+</html>
