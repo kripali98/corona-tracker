@@ -269,7 +269,7 @@ case 'West Bengal':return [22.98,87.85]
               {this.state.india_total_active_cases +" ("}
                     {(this.state.india_change_active>0)?this.state.india_change_active:(-1*this.state.india_change_active)}
                   <span style={{color:(this.state.india_change_active<0)?'green':'red'}}>
-                 <b> {(this.state.india_change_active<0)?'🠗':(this.state.india_change_active?'🠑':'')} </b>
+                 <b> {(this.state.india_change_active<0)?<span><b>&#8595;</b></span>:(this.state.india_change_active?<span><b>&#8593;</b></span>:'')} </b>
                       </span>
                       {" )"}
                     <br/>
@@ -278,7 +278,7 @@ case 'West Bengal':return [22.98,87.85]
                     {this.state.india_total_cured+" ( "}                    
                     {(this.state.india_change_cured>0)?this.state.india_change_cured:(-1*this.state.india_change_cured)}
                   <span style={{color:(this.state.india_change_cured>0)?'green':'red'}}>
-                 <b> {(this.state.india_change_cured<0)?'🠗':(this.state.india_change_cured?'🠑':'')} </b>
+                 <b> {(this.state.india_change_cured<0)?<span><b>&#8595;</b></span>:(this.state.india_change_cured?<span><b>&#8593;</b></span>:'')} </b>
                       </span>
                       {" )"}
                     <br/>
@@ -286,7 +286,7 @@ case 'West Bengal':return [22.98,87.85]
                     {this.state.india_total_deaths+" ( "}
                     {(this.state.india_change_death>0)?this.state.india_change_death:(-1*this.state.india_change_death)}
                   <span style={{color:(this.state.india_change_death<0)?'green':'red'}}>
-                 <b> {(this.state.india_change_death<0)?'🠗':(this.state.india_change_death?'🠑':'')} </b>
+                 <b> {(this.state.india_change_death<0)?<span><b>&#8595;</b></span>:(this.state.india_change_death?<span><b>&#8593;</b></span>:'')} </b>
                       </span>
                       {" )"}
                       <br/>
@@ -350,7 +350,7 @@ case 'West Bengal':return [22.98,87.85]
                     <b>Change Since Yesterday : </b>
                     {(item.change_active>0)?item.change_active:(-1*item.change_active)}
                   <span style={{color:(item.change_active<0)?'green':'red'}}>
-                 <b> {(item.change_active<0)?'🠗':(item.change_active?'🠑':'')} </b>
+                 {(item.change_active<0)?<span><b>&#8595;</b></span>:(item.change_active?<span><b>&#8593;</b></span>:'')}
                       </span>
                     <br/>                                 
                     <b>Recovered : </b>
@@ -359,7 +359,7 @@ case 'West Bengal':return [22.98,87.85]
                     <b>Change Since Yesterday : </b>
                     {(item.change_cured>0)?item.change_cured:(-1*item.change_cured)}
                   <span style={{color:(item.change_cured>0)?'green':'red'}}>
-                 <b> {(item.change_cured<0)?'🠗':(item.change_cured?'🠑':'')} </b>
+                 <b> {(item.change_cured<0)?<span><b>&#8595;</b></span>:(item.change_cured?<span><b>&#8593;</b></span>:'')} </b>
                       </span>
                     <br/>
                     <b>Deaths : </b>
@@ -368,7 +368,7 @@ case 'West Bengal':return [22.98,87.85]
                     <b>Change Since Yesterday : </b>
                     {(item.change_death>0)?item.change_death:(-1*item.change_death)}
                   <span style={{color:(item.change_death<0)?'green':'red'}}>
-                 <b> {(item.change_death<0)?'🠗':(item.change_death?'🠑':'')} </b>
+                 <b> {(item.change_death<0)?<span><b>&#8595;</b></span>:(item.change_death?<span><b>&#8593;</b></span>:'')} </b>
                       </span>
                     <br/>
                     
