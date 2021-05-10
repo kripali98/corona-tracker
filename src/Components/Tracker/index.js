@@ -70,66 +70,9 @@ case 'West Bengal':return [22.98,87.85]
   }
   return null;
 }
-// getLatitude=async(state_name)=>{
-//   const data=await (await fetch(`https://api.opencagedata.com/geocode/v1/json?q=${state_name}&key=90173dea437e4b2c98194e28669dce90`)).json();
- 
-//     const place = data.results[0].geometry;
-  
-//        let { latitude,longitude } = this.state;
-//        latitude.push(place.lat);
-//        longitude.push(place.lng);
-//        this.setState({latitude: latitude,
-//       longitude:longitude});
-//     //console.log(this.state.latitude+","+this.state.longitude);
-//     // });
-    
-//   }
-// const geocoder = new Geocodio('49479b960ee99069e9eb20e34f6bf223377befa');
-
-// const promise = geocoder.geocode(state_name);
-//   const promise=opencage.geocode({q: state_name,
-//     key:'90173dea437e4b2c98194e28669dce90'
-//     });
-
-//     // using .then, create a new promise which extracts the data
-//     const dataPromise = promise.then(response => {return response});
-//     console.log(dataPromise);
-// return 20;
-//     // return it
-//     return dataPromise;
-// const data=await axios.create({
-//   baseURL:`https://api.opencagedata.com/geocode/v1/json?q=${state_name}&key=9fc1647a250c419698d9da996bf0b30e`,
-//   method:get,
-//   responseType:'json'
-// })
-// //const data=datajson.json();
-// //console.log(data);
-// const place = Number(data.results[0].geometry.lat).toFixed(2);
-// console.log(place);
-// this.setState({
-//   lat:place
-// });
-// return place;
-
-
-// getLongitude=async(state_name)=>{
-//   const data=await (await fetch(`https://api.opencagedata.com/geocode/v1/json?q=${state_name}&key=9fc1647a250c419698d9da996bf0b30e`)).json();
-//   //const data=datajson.json();
-//   //console.log(data);
-//   const place = Number(data.results[0].geometry.lng).toFixed(2);
-//   console.log(place);
-//   this.setState({
-//     lng:place
-//   });
-//   return place;/
-//   }
    componentDidMount(){
    axios.get(`https://www.mohfw.gov.in/data/datanew.json`).then(res=>{
-     //console.log(res.data);
      var india_details=res.data.pop();  
-    //  res.data.map(item=>{
-    //    this.getLatitude(item.state_name);
-    //  })
   let highcure=0;
     let highdeath=0;
     let highcase=0;
@@ -143,10 +86,6 @@ case 'West Bengal':return [22.98,87.85]
     let deathnamemin=null;
     let curenamemin=null;
    res.data.map(item =>{
-      
-      // if(item.new_active==highcase){
-      //   casename=casename+" "+item.state_name;
-      // }
       if(Number(item.new_active)<mincase){
         casenamemin=item.state_name;
         mincase=Number(item.new_active);
@@ -163,24 +102,17 @@ case 'West Bengal':return [22.98,87.85]
  casename=item.state_name;
  highcase=Number(item.new_active);
       }
-    // console.log(item.new_active+item.state_name);
-      // if(item.new_cured==highcure){
-      //   curename=curename+" "+item.state_name;
-      //   }
       if(Number(item.new_cured)>highcure){
        curename=item.state_name;
        highcure=Number(item.new_cured);
        }
-      //  if(item.new_death==highdeath){
-      //   deathname=deathname+" "+item.state_name;
-      //   }
        if(Number(item.new_death)>highdeath){
          deathname=item.state_name;
          highdeath=Number(item.new_death);
          }
         
    })
-   //console.log("hello"+casename);
+
      this.setState({
       highcases:casename,
       highcures:curename,
@@ -205,58 +137,14 @@ case 'West Bengal':return [22.98,87.85]
         total_deaths: item.new_death,
         change_death:item.new_death-item.death,
       geometry:this.getGeometry(item.state_name),
-      radius:4
-       // longitude:this.getLongitude(item.state_name)
        })) 
       }); 
      
    });
-  // console.log(this.state.latitude[0]+"outside"+this.state.longitude);
-  // this.getHighest();
-  // console.log("highest"+this.state.highcase);
   }
-//   getHighest=()=>{
-//     var highcure=0;
-//     var highdeath=0;
-//     var highcase=0;
-//    var casename=null;
-//    var deathname=null;
-//    var curename=null;
-// for(let item in this.state.state_details){
-//      if(item.total_active_cases>highcase){
-// casename=item.state_name;
-// highcase=item.total_active_cases;
-//      }
-//      if(item.total_active_cases==highcase){
-//        casename=casename+" "+item.state_name;
-//      }
-//      if(item.total_cured>highcure){
-//       curename=item.state_name;
-//       highcure=item.total_cured;
-//       }
-//      if(item.total_cured==highcure){
-//       curename=curename+" "+item.state_name;
-//       }
-//       if(item.total_deaths>highdeath){
-//         deathname=item.state_name;
-//         highdeath=item.total_deaths;
-//         }
-//        if(item.total_deaths==highdeath){
-//         deathname=deathname+" "+item.state_name;
-//         }
-//    }
-//    console.log(deathname+" hello");
-//    let { highcase,highcure,highdeath } = this.state;
-//    this.setState({
-//      highcase:casename,
-//      highcure:curename,
-//      highdeath:deathname
-//    })
-   
-//   }
-  
+
   render() {
-  var id=37
+
     return (
      
       <React.Fragment>

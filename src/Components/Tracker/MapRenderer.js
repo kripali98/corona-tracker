@@ -25,9 +25,6 @@ class MapRenderer extends React.Component {
                 color={item.cardColor}
                 center={item.geometry}
                 radius={item.id==this.props.selectedStateIndex?'15':'4'}
-               
-               // center={center}
-                
               >
                 <Popup>
                   <h2>{item.state_name}</h2>
